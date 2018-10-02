@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\ShopingCart;
-use App\Model\Product;
+use App\Model\Product\Product;
 
 class CartController extends Controller
 {

@@ -151,6 +151,9 @@ return [
          * Package Service Providers...
          */
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        Jsdecena\Baserepo\BaseRepositoryProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
+        Krnfx\KrnfxServiceProvider::class,
         /*
          * Application Service Providers...
          */
