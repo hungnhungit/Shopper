@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Category\Interfaces\CategoryRepositoryInterface;
 use App\Model\Category\Category;
-use App\Service\TestService;
+use App\Services\TestService;
+use Krnfx;
 class CategoryController extends Controller
 {
 	protected $rpoCategory;

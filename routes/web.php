@@ -20,32 +20,32 @@
 // die;
 
 use Illuminate\Http\Request;
-
+use \Smalot\PdfParser\Parser;
 Route::get('search_engine', function(Request $request) {
 	//pdf
 	if($request->has('q') && $request->q !=''){
 		
-	}
-	$parser = new \Smalot\PdfParser\Parser();
+	
+	$parser = new Parser();
 	$pdf = $parser->parseFile(__DIR__.'/php_tutorial.pdf');
 
 	$pages  = $pdf->getPages();
 
 	//search
+	$countQuery = 0;
 	foreach ($pages as $page) {
 		$text = $page->getText();
 		$arrSearch = explode(' ',$text);
 		if (in_array($request->q,$arrSearch)) {
-			echo "true";
-			break;
+			if(++$countQuery > 10){
+				break;
+			}
 		}
-
-
-
 	 //    for ($i=0; $i < strlen($text); $i++) {
-
 		// }
 	}
+	}
+	dd($countQuery,$request->q);
 	die;
  
 
@@ -106,7 +106,34 @@ Route::group(['prefix' => 'admin','middleware' => 'admin','as' => 'admin.' ], fu
 
 // font-end
 
+Route::namespace('Font')->group(function(){
+
+	Route::get('product','ProductController@index')->name('product.index');
+	Route::get('product/{product}/wishlist','ProductController@wishlist')->name('product.wishlist');
+	Route::get('wishlist','WishlistController@index')->name('wishlist.index');
+});
+
+Route::get('upload','Admin\UserController@showFormUpload')->name('upload.index');
+
+Route::post('test','Admin\UserController@files')->name('upload.store');
 
 Route::get('/api/categories',function(){
 	return App\Model\Category\Category::all();
 });
+
+
+Route::get('/api/wishlist',function(){
+	return App\Model\Wishlist\Wishlist::all();
+});
+
+Route::get('/api/product/{id}',function($id){
+	$product = App\Model\Product\Product::find($id);
+	return $product->category;
+});
+
+Route::get('/api/user/{id}',function($id){
+	$user = App\User::find($id);
+	return $user->wishlists_product;
+});
+
+

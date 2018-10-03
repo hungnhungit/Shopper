@@ -54,6 +54,16 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     }
 
 
+    /**
+     * [findBySlug description]
+     * @param  array $slug [description]
+     * @return [Category]          [description]
+     */
+    public function findBySlug($slug) : Category{
+        return $this->findBy($slug)->first();
+    }
+
+
 }
 
  ?>
